@@ -1,0 +1,111 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Container do Avatar com borda destacada */
+.avatarWrapper {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1.25rem;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  border: 2px solid var(--border-subtle);
+  background-color: var(--bg-card);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.avatarWrapper:hover .avatar {
+  transform: scale(1.05);
+  border-color: var(--accent-cta);
+}
+
+/* Badge de Status com efeito Radar/Ping */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(155, 204, 143, 0.1);
+  border: 1px solid rgba(155, 204, 143, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-status);
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.statusDotWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-status);
+  border-radius: var(--radius-pill);
+}
+
+.statusPing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background-color: var(--accent-status);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Textos e Tipografia */
+.name {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--accent-cta);
+  margin-bottom: 0.75rem;
+}
+
+.bio {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+.codeComment {
+  color: var(--text-muted);
+  opacity: 0.6;
+  font-family: var(--font-mono);
+}
