@@ -1,0 +1,68 @@
+/* Diálogo nativo centralizado */
+.dialog {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  padding: 0;
+  max-width: 440px;
+  width: calc(100% - 2rem);
+  margin: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  outline: none;
+}
+
+/* Fundo escurecido nativo (Backdrop) */
+.dialog::backdrop {
+  background: rgba(13, 17, 23, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Cabeçalho do Modal */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.modalTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.closeButton {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.closeButton:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.modalBody {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
