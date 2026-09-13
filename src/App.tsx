@@ -3,12 +3,25 @@ import { Header } from "./components/Header/Header";
 import { ActionList } from "./components/ActionList/ActionList";
 import { ServicesGrid } from "./components/ServicesGrid/ServicesGrid";
 import { BudgetModal } from "./components/BudgetModal/BudgetModal";
+import {
+  BudgetForm,
+  type BudgetFormData,
+} from "./components/BudgetForm/BudgetForm";
 
 export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleFormSuccess = (data: BudgetFormData) => {
+    // Validação funcional imediata: simula a captura dos dados antes da integração externa
+    console.log("Briefing capturado com sucesso:", data);
+    alert(
+      `Obrigado, ${data.name}! Recebemos sua solicitação para ${data.projectType}.`,
+    );
+    setIsModalOpen(false);
+  };
 
   return (
     <main style={{ maxWidth: "480px", width: "100%" }}>
@@ -23,28 +36,8 @@ export function App() {
 
       <ServicesGrid />
 
-      {/* Modal com as props declaradas separadamente */}
       <BudgetModal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <p style={{ marginBottom: "1rem" }}>
-          Estrutura do modal validada com sucesso! No próximo bloco conectaremos
-          os campos dinâmicos do formulário de briefing.
-        </p>
-        <button
-          type="button"
-          onClick={handleCloseModal}
-          style={{
-            width: "100%",
-            padding: "0.75rem",
-            backgroundColor: "var(--bg-card)",
-            color: "var(--text-primary)",
-            borderRadius: "var(--radius-sm)",
-            border: "1px solid var(--border-subtle)",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.85rem",
-          }}
-        >
-          // Fechar prévia
-        </button>
+        <BudgetForm onSubmitSuccess={handleFormSuccess} />
       </BudgetModal>
     </main>
   );

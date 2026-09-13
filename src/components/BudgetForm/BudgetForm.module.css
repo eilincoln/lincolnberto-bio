@@ -1,0 +1,132 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.requiredSign {
+  color: var(--accent-cta);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--accent-cta);
+  box-shadow: 0 0 0 2px rgba(255, 155, 21, 0.2);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Grid de Seleção do Tipo de Projeto */
+.serviceOptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.optionCard {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  background-color: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.optionCard:hover {
+  border-color: var(--text-muted);
+}
+
+.optionCardActive {
+  border-color: var(--accent-cta);
+  background-color: rgba(255, 155, 21, 0.1);
+  color: var(--accent-cta);
+  font-weight: 600;
+}
+
+.optionIcon {
+  font-size: 1rem;
+}
+
+/* Botão de Envio */
+.submitButton {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--accent-cta);
+  color: #0d1117;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--accent-cta-hover);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Alerta de erro de validação */
+.errorMessage {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #ff6b6b;
+  margin-top: 0.2rem;
+}
