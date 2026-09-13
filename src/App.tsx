@@ -7,20 +7,57 @@ import {
   BudgetForm,
   type BudgetFormData,
 } from "./components/BudgetForm/BudgetForm";
+import { Footer } from "./components/Footer/Footer";
+// Mapeamento semântico dos IDs para nomes amigáveis na mensagem
+const PROJECT_TYPE_LABELS: Record<string, string> = {
+  "bio-hub": "Link na Bio Personalizado",
+  "landing-page": "Landing Page / Página de Vendas",
+  institucional: "Site Institucional",
+  manutencao: "Ajuste de Código / Manutenção",
+};
+
+const DEADLINE_LABELS: Record<string, string> = {
+  urgente: "O quanto antes (Urgente)",
+  "15-dias": "Em até 15 dias",
+  "30-dias": "Em até 30 dias",
+  "sem-pressa": "Sem pressa (Planejamento)",
+};
 
 export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Seu número do WhatsApp no formato internacional: 55 + DDD + Número (apenas dígitos)
+  const WHATSAPP_NUMBER = "5511999999999"; // <-- Substitua pelo seu WhatsApp real
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handleFormSuccess = (data: BudgetFormData) => {
-    // Validação funcional imediata: simula a captura dos dados antes da integração externa
-    console.log("Briefing capturado com sucesso:", data);
-    alert(
-      `Obrigado, ${data.name}! Recebemos sua solicitação para ${data.projectType}.`,
-    );
     setIsModalOpen(false);
+
+    const projectLabel =
+      PROJECT_TYPE_LABELS[data.projectType] || data.projectType;
+    const deadlineLabel = DEADLINE_LABELS[data.deadline] || data.deadline;
+
+    // Constrói a mensagem formatada para o WhatsApp
+    const message = [
+      `*Novo Pedido de Orçamento via Hub* 🚀`,
+      ``,
+      `*Nome/Empresa:* ${data.name}`,
+      `*Contato:* ${data.contact}`,
+      `*Serviço:* ${projectLabel}`,
+      `*Prazo desejado:* ${deadlineLabel}`,
+      data.details ? `*Detalhes:* ${data.details}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    // Encodamento seguro para URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    // Abre o WhatsApp em uma nova aba
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -39,6 +76,8 @@ export function App() {
       <BudgetModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <BudgetForm onSubmitSuccess={handleFormSuccess} />
       </BudgetModal>
+
+      <Footer />
     </main>
   );
 }

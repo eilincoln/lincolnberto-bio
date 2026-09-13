@@ -58,7 +58,6 @@ export function BudgetForm({ onSubmitSuccess }: BudgetFormProps) {
           placeholder="Ex: Carlos Oliveira"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
         />
       </div>
 
@@ -77,11 +76,10 @@ export function BudgetForm({ onSubmitSuccess }: BudgetFormProps) {
           onChange={(e) =>
             setFormData({ ...formData, contact: e.target.value })
           }
-          required
         />
       </div>
 
-      {/* Seleção do Tipo de Projeto */}
+      {/* Seleção do Tipo de Demanda */}
       <div className={styles.fieldGroup}>
         <span className={styles.label}>
           <span>Tipo de Demanda</span>
@@ -115,7 +113,7 @@ export function BudgetForm({ onSubmitSuccess }: BudgetFormProps) {
         </label>
         <select
           id="deadline"
-          className={styles.input}
+          className={styles.select}
           value={formData.deadline}
           onChange={(e) =>
             setFormData({ ...formData, deadline: e.target.value })
@@ -136,7 +134,7 @@ export function BudgetForm({ onSubmitSuccess }: BudgetFormProps) {
         <textarea
           id="details"
           className={styles.textarea}
-          placeholder="Conte resumidamente o que você imagina ou referências de sites..."
+          placeholder="Conte resumidamente o que você imagina ou referências..."
           value={formData.details}
           onChange={(e) =>
             setFormData({ ...formData, details: e.target.value })
