@@ -8,6 +8,10 @@ import {
   type BudgetFormData,
 } from "./components/BudgetForm/BudgetForm";
 import { Footer } from "./components/Footer/Footer";
+
+// Número comercial internacional (DDI + DDD + Número)
+const WHATSAPP_NUMBER = "5511913372806";
+
 // Mapeamento semântico dos IDs para nomes amigáveis na mensagem
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   "bio-hub": "Link na Bio Personalizado",
@@ -26,9 +30,6 @@ const DEADLINE_LABELS: Record<string, string> = {
 export function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Seu número do WhatsApp no formato internacional: 55 + DDD + Número (apenas dígitos)
-  const WHATSAPP_NUMBER = "5511999999999"; // <-- Substitua pelo seu WhatsApp real
-
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
@@ -39,25 +40,49 @@ export function App() {
       PROJECT_TYPE_LABELS[data.projectType] || data.projectType;
     const deadlineLabel = DEADLINE_LABELS[data.deadline] || data.deadline;
 
-    // Constrói a mensagem formatada para o WhatsApp
-    const message = [
-      `*Novo Pedido de Orçamento via Hub* 🚀`,
+    // Mensagem com os emojis originais
+    const messageLines = [
+      `✨ *NOVO BRIEFING DE PROJETO* ✨`,
+      `*Lincoln Berto - Dev Hub*`,
       ``,
-      `*Nome/Empresa:* ${data.name}`,
-      `*Contato:* ${data.contact}`,
-      `*Serviço:* ${projectLabel}`,
-      `*Prazo desejado:* ${deadlineLabel}`,
-      data.details ? `*Detalhes:* ${data.details}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
+      `👤 *Cliente:* ${data.name}`,
+      `📱 *Contato:* ${data.contact}`,
+      ``,
+      `🛠️ *Escopo Solicitado:*`,
+      `• ${projectLabel}`,
+      ``,
+      `⏳ *Prazo Desejado:*`,
+      `• ${deadlineLabel}`,
+    ];
 
-    // Encodamento seguro para URL
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    if (data.details && data.details.trim().length > 0) {
+      messageLines.push(
+        ``,
+        `📝 *Detalhes / Observações:*`,
+        `_${data.details.trim()}_`,
+      );
+    }
 
-    // Abre o WhatsApp em uma nova aba
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    messageLines.push(
+      ``,
+      `_Olá, Lincoln! Enviei minhas informações pelo seu link na bio e aguardo seu retorno para alinharmos o projeto._`,
+    );
+
+    const fullMessage = messageLines.join("\n");
+
+    // Monta a URL completa usando api.whatsapp.com
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(
+      fullMessage,
+    )}`;
+
+    // Cria um elemento <a> virtual para disparar a navegação sem double encoding do window.open
+    const link = document.createElement("a");
+    link.href = whatsappUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
