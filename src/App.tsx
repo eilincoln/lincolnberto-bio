@@ -1,9 +1,9 @@
 import { Header } from "./components/Header/Header";
 import { ActionList } from "./components/ActionList/ActionList";
+import { ServicesGrid } from "./components/ServicesGrid/ServicesGrid";
 
 export function App() {
   const handleOpenBudgetModal = () => {
-    // Validação provisória antes de montarmos o Modal nativo no próximo bloco
     alert("Modal de Orçamento será acionado aqui!");
   };
 
@@ -17,6 +17,8 @@ export function App() {
       />
 
       <ActionList onOpenBudgetModal={handleOpenBudgetModal} />
+
+      <ServicesGrid />
     </main>
   );
 }
